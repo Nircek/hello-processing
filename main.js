@@ -1,16 +1,22 @@
-var off = 0.0;
-var step = 0.01;
-var width = 640;
-var height = 480;
+var Width = 640;
+var Height = 480;
+var step = 0.005;
+var off = -Height*step*0.5;
+var factor=1024;
 function setup() {
-  createCanvas(width, height);
+  createCanvas(Width, Height);
   noiseSeed(random(1024*1024));
 }
 
 function draw() {
   clear();
   off += step;
-  y=0;
-  line(0, y, width*noise(off+2)-(64/off), y);
-  line(width*noise(off+2)+(64/off),y, width, y);
+  for(let y=0;y<Height;++y) {
+    let loff = off+step*y; // local off
+    if(loff<0)continue;
+    let c = noise(loff); // center
+    let r = factor/loff; // radius ala size
+    line(0, y, Width*c-r, y);
+    line(Width*c+r, y, Width, y);
+  }
 }

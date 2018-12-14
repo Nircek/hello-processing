@@ -3,6 +3,7 @@ var Height = 480;
 var step = 0.005;
 var off = -Height*step*0.5;
 var factor=1024;
+var Size = 5; // radius of cursor
 function setup() {
   createCanvas(Width, Height);
   noiseSeed(random(1024*1024));
@@ -10,6 +11,9 @@ function setup() {
 
 function draw() {
   clear();
+  stroke('red');
+  ellipse(mouseX,mouseY,Size,Size);
+  stroke('black');
   off += step;
   for(let y=0;y<Height;++y) {
     let loff = off+step*y; // local off
